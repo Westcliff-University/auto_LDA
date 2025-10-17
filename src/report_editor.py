@@ -142,7 +142,7 @@ class report_editor():
                 except:
                     self.driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[3]/div[2]/div[3]/div/section/div/form[1]/table/tbody/tr[5]/td[6]/a[1]').click()
                 
-                time.sleep(8) # Provides an extra delay to make sure the file actually downloads.
+                time.sleep(9) # Provides an extra delay to make sure the file actually downloads.
                 # There is a tradeoff between decreasing this time sleep and decreasing num_splits.
 
                 move_latest_csv(self.dir_name, os.environ.get('DOWNLOADS_DIR'))
@@ -159,4 +159,5 @@ class report_editor():
             df.to_csv(f'{data_dir}\\{self.report_name}.csv', index = 0)
         else:
             os.makedirs(os.path.abspath(os.pardir + f'/data/output-{datetime.today().strftime('%Y-%m-%d')}'),exist_ok=True)
+
             df.to_csv(f'../data/output-{datetime.today().strftime('%Y-%m-%d')}/{self.report_name}.csv', index = 0)
