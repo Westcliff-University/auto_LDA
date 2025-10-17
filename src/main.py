@@ -77,7 +77,7 @@ engagement_by_student_and_course_editor = report_editor(
                 ,time_restriction = True
                 ,need_id_filter = True
                 ,username = username
-                ,num_splits = 5
+                ,num_splits = 6
                 ,password = password)
 
 engagement_by_student_and_course_editor.login_to_gap()
@@ -91,7 +91,7 @@ ir_attendance_editor = report_editor(
                 ,dl_url = ir_attendance_dl_url
                 ,domestic = True
                 ,username = username
-                ,num_splits = 4
+                ,num_splits = 5
                 ,time_restriction = False
                 ,need_id_filter=True
                 ,password = password)
@@ -107,7 +107,7 @@ last_meaningful_engagement_editor = report_editor(
                 ,dl_url = last_meaningful_engagement_dl_url
                 ,domestic = True
                 ,username = username
-                ,num_splits = 5
+                ,num_splits = 6
                 ,time_restriction = True
                 ,need_id_filter=True
                 ,password = password)
@@ -127,7 +127,7 @@ dge_engagement_by_student_and_course_editor = report_editor(
                 ,time_restriction = True
                 ,need_id_filter = True
                 ,username = username
-                ,num_splits = 4
+                ,num_splits = 5
                 ,password = password)
 
 dge_engagement_by_student_and_course_editor.login_to_gap()
@@ -141,7 +141,7 @@ dge_last_meaningful_engagement_editor = report_editor(
                 ,dl_url = dge_last_meaningful_engagement_dl_url
                 ,domestic = False
                 ,username = username
-                ,num_splits = 4
+                ,num_splits = 5
                 ,time_restriction = True
                 ,need_id_filter = True
                 ,password = password)
@@ -186,10 +186,10 @@ with chdir(data_dir):
     with chdir(output_dir):
         course_codes.to_csv('COURSE_CODES.csv')
         sis_df.to_csv('LDA_info.csv', index = 0)
-        dge_sis_df.to_csv('DGE_LDA_info.csv')
-        gap_lda.to_csv('gap_non_absentees_lda.csv', index = 1)
+        dge_sis_df.to_csv('DGE_LDA_info.csv', index = 0)
+        gap_lda.to_csv('gap_non_absentees_lda.csv', index = 1) # This uses the SIDs as the index, so we do export these indices.
         dge_gap_lda = dge_gap_lda[dge_gap_lda[dge_gap_lda.columns[0]].astype('datetime64[ns]') < datetime.now()]
-        dge_gap_lda.to_csv('dge_gap_non_absentees_lda.csv', index = 1)
+        dge_gap_lda.to_csv('dge_gap_non_absentees_lda.csv', index = 1) # This uses the SIDs as the index, so we do export these indices.
         lda_by_course.to_csv('lda_by_course.csv', index = 0)
         dge_lda_by_course.to_csv('dge_lda_by_course.csv', index = 0)
         try:
@@ -202,4 +202,5 @@ with chdir(data_dir):
             1
 
 t1 = time.time()
+
 print(f'Total execution time: {int(100 * (t1 - t0)/60)/100} minutes.')
